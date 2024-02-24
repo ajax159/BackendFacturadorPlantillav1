@@ -20,8 +20,7 @@ import com.servicex.facturador.services._m_facturador.FacUsuarioService;
 public class FacUsuarioController implements ApiResponse{
     @Autowired
     private FacUsuarioService facUsuarioservice;
-    // @Autowired
-    // private FacUsuarioValidator facUsuarioValidator;
+
     @Autowired
     Configurations configurations;
 

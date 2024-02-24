@@ -3,6 +3,7 @@ import jakarta.validation.Valid;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class FacCajaApiController implements ApiResponse {
     @Autowired
     Configurations configurations;
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/listar")
     public ResponseEntity<Object> getDefault() {
         Map<String, Object> response = new HashMap<>();
