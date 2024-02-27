@@ -3,6 +3,7 @@ import jakarta.validation.Valid;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.servicex.facturador.config._api.ApiResponse;
@@ -25,6 +26,7 @@ public class FacCajaSerieApiController implements ApiResponse{
     @Autowired
     Configurations configurations;
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/listar")
     public ResponseEntity<Object> getDefault() {
         Map<String, Object> response = new HashMap<>();
@@ -33,17 +35,21 @@ public class FacCajaSerieApiController implements ApiResponse{
         return showOne(response);
     }
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/serie")
     public ResponseEntity<ArrayList<FacCajaSerieDto>> getIdCaja(@RequestParam("idcaja") Long idcaja){
         ArrayList<FacCajaSerieDto> facdocumentos = facCajaSerieservice.getIdCaja(idcaja);
         return ResponseEntity.ok(facdocumentos);
     }
+
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/notserie")
     public ResponseEntity<ArrayList<FacCajaSerieNotDTO>> getnotIdCaja(@RequestParam("idcaja") Long idcaja){
         ArrayList<FacCajaSerieNotDTO> facdocumentos = facCajaSerieservice.getnotIdCaja(idcaja);
         return ResponseEntity.ok(facdocumentos);
     }
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/listar/{gecId}/{empId}")
     public ResponseEntity<Object> listarPorGecIdEmpIdYEstado(@PathVariable Long gecId, @PathVariable Long empId) {
         FacCajaSerieModel usuarios = facCajaSerieservice.listarPorGecIdEmpIdYEstado(gecId, empId, 0L);
@@ -57,6 +63,7 @@ public class FacCajaSerieApiController implements ApiResponse{
     //     }
     // }
 
+    @PreAuthorize("hasPermission('1','insert')")
     @PostMapping("/crear")
     public ResponseEntity<Object> createCaja(@Valid @RequestBody FacCajaSerieModel facCajaSerieModel, BindingResult result)
             throws NotValidException, SaveException {
@@ -80,6 +87,7 @@ public class FacCajaSerieApiController implements ApiResponse{
     //     return updateSuccessfully(existingFacSerie);
     // }
 
+    @PreAuthorize("hasPermission('1','delete')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCaja(@PathVariable Long id)
             throws DeleteException {

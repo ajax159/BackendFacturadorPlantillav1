@@ -3,24 +3,17 @@ package com.servicex.facturador.services._m_facturador;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servicex.facturador.config._api.exceptions.DeleteException;
 import com.servicex.facturador.config._api.exceptions.NotFoundException;
 import com.servicex.facturador.config._api.exceptions.SaveException;
-import com.servicex.facturador.controllers._m_facturador.authController.UserInfoUserDetails;
 import com.servicex.facturador.models._m_facturador.FacUsuarioModel;
 import com.servicex.facturador.repositories._m_facturador.FacUsuarioRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class FacUsuarioService{

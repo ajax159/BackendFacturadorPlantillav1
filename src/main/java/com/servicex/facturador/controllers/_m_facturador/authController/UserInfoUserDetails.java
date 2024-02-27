@@ -1,8 +1,6 @@
 package com.servicex.facturador.controllers._m_facturador.authController;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,8 +1,6 @@
 package com.servicex.facturador.models._m_facturador;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -13,7 +11,6 @@ import com.servicex.facturador.models.GlobalEntity;
 @DynamicUpdate
 @Entity
 @Data
-
 @Table(name = "fac_roles")
 public class FacRoles extends GlobalEntity implements Serializable{
     private static final long serialVersionUID = 1L;

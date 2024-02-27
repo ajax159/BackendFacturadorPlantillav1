@@ -23,4 +23,9 @@ public class UserInfoUserDetailsService implements UserDetailsService {
         return usuario.map(UserInfoUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el nombre: " + username));
     }
+
+    public FacUsuarioModel loadFacUsuarioByUsername(String username) {
+        return datFacUsuario.findByUsuUsuario(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el nombre: " + username));
+    }
 }

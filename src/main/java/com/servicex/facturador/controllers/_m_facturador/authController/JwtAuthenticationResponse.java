@@ -1,7 +1,6 @@
 package com.servicex.facturador.controllers._m_facturador.authController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,26 +42,4 @@ public class JwtAuthenticationResponse extends OncePerRequestFilter{
         }
         filterChain.doFilter(request, response);
     }
-    // private String accessToken;
-    // private String tokenType = "Bearer";
-
-    // public JwtAuthenticationResponse(String accessToken) {
-    //     this.accessToken = accessToken;
-    // }
-
-    // public String getAccessToken() {
-    //     return accessToken;
-    // }
-
-    // public void setAccessToken(String accessToken) {
-    //     this.accessToken = accessToken;
-    // }
-
-    // public String getTokenType() {
-    //     return tokenType;
-    // }
-
-    // public void setTokenType(String tokenType) {
-    //     this.tokenType = tokenType;
-    // }
 }

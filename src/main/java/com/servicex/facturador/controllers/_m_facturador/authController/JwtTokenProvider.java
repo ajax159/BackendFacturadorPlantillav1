@@ -2,6 +2,9 @@ package com.servicex.facturador.controllers._m_facturador.authController;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.servicex.facturador.models._m_facturador.FacUsuarioModel;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,10 +12,8 @@ import io.jsonwebtoken.io.Decoders;
 
 import java.security.Key;
 import java.util.*;
-import io.jsonwebtoken.security.Keys;
 import java.util.function.Function;
 
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 @Component
@@ -51,9 +52,10 @@ public class JwtTokenProvider {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    public String generateToken(String userName){
+    public String generateToken(FacUsuarioModel user){
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userName);
+        claims.put("rolId", user.getRoles());
+        return createToken(claims, user.getUsuUsuario());
     }
 
     private String createToken(Map<String, Object> claims, String userName) {

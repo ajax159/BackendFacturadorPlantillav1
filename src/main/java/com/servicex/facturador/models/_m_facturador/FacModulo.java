@@ -1,4 +1,5 @@
 package com.servicex.facturador.models._m_facturador;
+
 import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -6,25 +7,22 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicUpdate;
 import com.servicex.facturador.models.GlobalEntity;
+
 @EqualsAndHashCode(callSuper=false)
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "fac_menu")
-public class FacMenu extends GlobalEntity implements Serializable{
+@Table(name = "fac_modulo")
+public class FacModulo extends GlobalEntity implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "men_id")
-    private Long menId;
+    @Column(name = "mod_id")
+    private Long modId;
 
-    @Column(name = "fac_modulo_mod_id")
-    private Long facmodulomodId;
-
-    @NotEmpty
-    @Column(name = "men_descripcion")
-    private String menDescripcion;
+    @Column(name = "mod_descripcion")
+    private String modDescripcion;
 
     @NotEmpty
     @Column(name = "created_by")

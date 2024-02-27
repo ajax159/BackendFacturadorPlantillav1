@@ -1,7 +1,7 @@
 package com.servicex.facturador.models._m_facturador;
 
 import java.io.Serializable;
-import java.util.*;
+
 
 //import com.conexize.global.util.CapitalizeFirstLetter;
 import jakarta.persistence.*;
@@ -15,9 +15,7 @@ import lombok.NoArgsConstructor;
 
 // import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import com.servicex.facturador.models.GlobalEntity;
 //import org.springframework.format.annotation.DateTimeFormat;

@@ -12,7 +12,9 @@ import com.servicex.facturador.config._api.Configurations;
 import com.servicex.facturador.config._api.exceptions.DeleteException;
 import com.servicex.facturador.config._api.exceptions.NotValidException;
 import com.servicex.facturador.config._api.exceptions.SaveException;
+import com.servicex.facturador.dtos.FacPermisosMenuDTO;
 import com.servicex.facturador.models._m_facturador.FacUsuarioModel;
+import com.servicex.facturador.services._m_facturador.FacPermisosService;
 import com.servicex.facturador.services._m_facturador.FacUsuarioService;
 // import com.servicex.facturador.validators.FacUsuarioValidator;
 @RestController
@@ -20,6 +22,9 @@ import com.servicex.facturador.services._m_facturador.FacUsuarioService;
 public class FacUsuarioController implements ApiResponse{
     @Autowired
     private FacUsuarioService facUsuarioservice;
+
+    @Autowired
+    private FacPermisosService facPermisosService;
 
     @Autowired
     Configurations configurations;
@@ -30,6 +35,12 @@ public class FacUsuarioController implements ApiResponse{
         response.put("facUsuario", facUsuarioservice.findAll());
         response.put("role", configurations.getRole());
         return showOne(response);
+    }
+
+    @GetMapping("/modulos/{id}")
+    public ResponseEntity<Object> getModulos(@PathVariable Long id) {
+        ArrayList<FacPermisosMenuDTO> modulos = facPermisosService.getModulos(id);
+        return showOne(modulos);
     }
 
     @GetMapping("/listar/{gecId}/{empId}")

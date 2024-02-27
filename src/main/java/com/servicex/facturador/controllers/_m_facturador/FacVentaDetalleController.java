@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class FacVentaDetalleController implements ApiResponse{
     @Autowired
     Configurations configurations;
 
+    @PreAuthorize("hasPermission('6','read')")
     @GetMapping("/listar")
     public ResponseEntity<Object> getDefault() {
         Map<String, Object> response = new HashMap<>();
@@ -34,6 +36,7 @@ public class FacVentaDetalleController implements ApiResponse{
         return showOne(response);
     }
 
+    @PreAuthorize("hasPermission('6','read')")
     @GetMapping("/listar/{gecId}/{empId}")
     public ResponseEntity<Object> listarPorGecIdEmpIdYEstado(@PathVariable Long gecId, @PathVariable Long empId) {
         FacVentaDetalleModel usuarios = facVentaDetalleservice.listarPorGecIdEmpIdYEstado(gecId, empId, 0L);
@@ -47,6 +50,7 @@ public class FacVentaDetalleController implements ApiResponse{
     //     }
     // }
 
+    @PreAuthorize("hasPermission('6','insert')")
     @PostMapping("/crear")
     public ResponseEntity<Object> createCaja(@Valid @RequestBody FacVentaDetalleModel facVentaDetalleModel, BindingResult result)
             throws NotValidException, SaveException {
@@ -55,6 +59,7 @@ public class FacVentaDetalleController implements ApiResponse{
         return savedSuccessfully(newFacCaja);
     }
 
+    @PreAuthorize("hasPermission('6','update')")
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateCaja(@PathVariable Long id, @RequestBody Map<String, Object> updates)
             throws NotValidException, SaveException {
@@ -70,6 +75,7 @@ public class FacVentaDetalleController implements ApiResponse{
         return updateSuccessfully(existingFacVentaDetalle);
     }
 
+    @PreAuthorize("hasPermission('6','delete')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCaja(@PathVariable Long id)
             throws DeleteException {

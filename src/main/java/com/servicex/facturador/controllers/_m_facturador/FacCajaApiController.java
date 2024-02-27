@@ -26,7 +26,7 @@ public class FacCajaApiController implements ApiResponse {
     @Autowired
     Configurations configurations;
 
-    @PreAuthorize("hasPermission('1','read')")
+    
     @GetMapping("/listar")
     public ResponseEntity<Object> getDefault() {
         Map<String, Object> response = new HashMap<>();
@@ -35,6 +35,7 @@ public class FacCajaApiController implements ApiResponse {
         return showOne(response);
     }
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/listar/{gecId}/{empId}")
     public ResponseEntity<Object> listarPorGecIdEmpIdYEstado(@PathVariable Long gecId, @PathVariable Long empId) {
         ArrayList<FacCajaModel> usuarios = facCajaservice.listarPorGecIdEmpIdYEstado(gecId, empId, 0L);
@@ -48,6 +49,7 @@ public class FacCajaApiController implements ApiResponse {
         }
     }
 
+    @PreAuthorize("hasPermission('1','insert')")
     @PostMapping("/crear")
     public ResponseEntity<Object> createCaja(@Valid @RequestBody FacCajaModel facCajaModel, BindingResult result)
             throws NotValidException, SaveException {
@@ -56,6 +58,7 @@ public class FacCajaApiController implements ApiResponse {
         return savedSuccessfully(newFacCaja);
     }
 
+    @PreAuthorize("hasPermission('1','update')")
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateCaja(@PathVariable Long id, @RequestBody Map<String, Object> updates)
             throws NotValidException, SaveException {
@@ -71,6 +74,7 @@ public class FacCajaApiController implements ApiResponse {
         return updateSuccessfully(existingFacCaja);
     }
 
+    @PreAuthorize("hasPermission('1','delete')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCaja(@PathVariable Long id)
             throws DeleteException {

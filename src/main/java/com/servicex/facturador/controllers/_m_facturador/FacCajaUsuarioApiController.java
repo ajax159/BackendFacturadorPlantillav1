@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.servicex.facturador.config._api.ApiResponse;
@@ -38,28 +39,35 @@ public class FacCajaUsuarioApiController implements ApiResponse {
     //     return showOne(response);
     // }
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/listar/{gecId}/{empId}")
     public ResponseEntity<Object> listarPorGecIdEmpIdYEstado(@PathVariable Long gecId, @PathVariable Long empId) {
         FacCajaUsuarioModel usuarios = facCajaUsuarioservice.listarPorGecIdEmpIdYEstado(gecId, empId, 0L);
         return showOne(usuarios);
     }
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/usuario")
     public ResponseEntity<ArrayList<FacCajaUsuarioDTO>> getIdCaja(@RequestParam("idcaja") Long idcaja){
         ArrayList<FacCajaUsuarioDTO> facusuarios = facCajaUsuarioservice.getIdCaja(idcaja);
         return ResponseEntity.ok(facusuarios);
     }
+
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/usuarionot")
     public ResponseEntity<ArrayList<FacCajaUsuarioNotDTO>> getNotIdCaja(@RequestParam("idcaja") Long idcaja){
         ArrayList<FacCajaUsuarioNotDTO> facusuarios = facCajaUsuarioservice.getNotIdCaja(idcaja);
         return ResponseEntity.ok(facusuarios);
     }
+
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/nombre")
     public ResponseEntity<ArrayList<FacCajaUsuarioDTO>> getUsuarioporNombre(@RequestParam("nombre") String nombre){
         ArrayList<FacCajaUsuarioDTO> facusuarios = facCajaUsuarioservice.getUsuarioporNombre(nombre);
         return ResponseEntity.ok(facusuarios);
     }
 
+    @PreAuthorize("hasPermission('1','insert')")
     @PostMapping("/crear")
     public ResponseEntity<Object> createCaja(@Valid @RequestBody FacCajaUsuarioModel facCajaUsuarioModel,
             BindingResult result)
@@ -72,6 +80,7 @@ public class FacCajaUsuarioApiController implements ApiResponse {
         return savedSuccessfully(newFacCajaUsuario);
     }
 
+    @PreAuthorize("hasPermission('1','delete')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCaja(@PathVariable Long id)
             throws DeleteException {

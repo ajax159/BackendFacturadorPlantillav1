@@ -3,6 +3,7 @@ import jakarta.validation.Valid;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,23 +29,28 @@ public class FacCajaDocumentoController implements ApiResponse{
     @Autowired
     Configurations configurations;
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/listar/{gecId}/{empId}")
     public ResponseEntity<Object> listarPorGecIdEmpIdYEstado(@PathVariable Long gecId, @PathVariable Long empId) {
         FacCajaDocumentoModel usuarios = facCajaDocumentoservice.listarPorGecIdEmpIdYEstado(gecId, empId, 0L);
         return showOne(usuarios);
     }
 
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/documento")
     public ResponseEntity<ArrayList<FacCajaDocumentoDTO>> getIdCaja(@RequestParam("idcaja") Long idcaja){
         ArrayList<FacCajaDocumentoDTO> facdocumentos = facCajaDocumentoservice.getIdCaja(idcaja);
         return ResponseEntity.ok(facdocumentos);
     }
+
+    @PreAuthorize("hasPermission('1','read')")
     @GetMapping("/notdocumento")
     public ResponseEntity<ArrayList<FacCajaDocumentoNotDTO>> getnotIdCaja(@RequestParam("idcaja") Long idcaja){
         ArrayList<FacCajaDocumentoNotDTO> facdocumentos = facCajaDocumentoservice.getnotIdCaja(idcaja);
         return ResponseEntity.ok(facdocumentos);
     }
 
+    @PreAuthorize("hasPermission('1','insert')")
     @PostMapping("/crear")
     public ResponseEntity<Object> createCaja(@Valid @RequestBody FacCajaDocumentoModel facCajaDocumentoModel,
             BindingResult result)
@@ -57,6 +63,7 @@ public class FacCajaDocumentoController implements ApiResponse{
         return savedSuccessfully(newFacCajaDocumento);
     }
 
+    @PreAuthorize("hasPermission('1','delete')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCaja(@PathVariable Long id)
             throws DeleteException {

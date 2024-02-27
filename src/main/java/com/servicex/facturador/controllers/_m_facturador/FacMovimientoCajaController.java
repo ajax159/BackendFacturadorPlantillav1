@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class FacMovimientoCajaController implements ApiResponse{
     @Autowired
     Configurations configurations;
 
+    @PreAuthorize("hasPermission('2','read')")
     @GetMapping("/listar")
     public ResponseEntity<Object> getDefault() {
         Map<String, Object> response = new HashMap<>();
@@ -38,12 +40,14 @@ public class FacMovimientoCajaController implements ApiResponse{
         return showOne(response);
     }
 
+    @PreAuthorize("hasPermission('2','read')")
     @GetMapping("/listar/{gecId}/{empId}")
     public ResponseEntity<Object> listarPorGecIdEmpIdYEstado(@PathVariable Long gecId, @PathVariable Long empId) {
         FacMovimientoCajaModel usuarios = facMovimientoCajaservice.listarPorGecIdEmpIdYEstado(gecId, empId, 0L);
         return showOne(usuarios);
     }
 
+    @PreAuthorize("hasPermission('2','read')")
     @GetMapping("/listarmovcaja/{gecId}/{empId}")
     public ResponseEntity<ArrayList<FacMovimientoCajaDTO>> listarMovimientocaja(@PathVariable Long gecId, @PathVariable Long empId, @RequestParam LocalDate fechainicio, @RequestParam LocalDate fechafin) {
         ArrayList<FacMovimientoCajaDTO> facmovimientocaja = facMovimientoCajaservice.listarMovimientocaja(gecId, empId, fechainicio, fechafin);
@@ -58,6 +62,7 @@ public class FacMovimientoCajaController implements ApiResponse{
         }
     }
 
+    @PreAuthorize("hasPermission('2','insert')")
     @PostMapping("/crear")
     public ResponseEntity<Object> createCaja(@Valid @RequestBody FacMovimientoCajaModel facMovimientoCajaModel, BindingResult result)
             throws NotValidException, SaveException {
@@ -66,6 +71,7 @@ public class FacMovimientoCajaController implements ApiResponse{
         return savedSuccessfully(newFacCaja);
     }
 
+    @PreAuthorize("hasPermission('2','update')")
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateCaja(@PathVariable Long id, @RequestBody Map<String, Object> updates)
             throws NotValidException, SaveException {
@@ -81,6 +87,7 @@ public class FacMovimientoCajaController implements ApiResponse{
         return updateSuccessfully(existingFacMovimientoCaja);
     }
 
+    @PreAuthorize("hasPermission('2','delete')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCaja(@PathVariable Long id)
             throws DeleteException {
